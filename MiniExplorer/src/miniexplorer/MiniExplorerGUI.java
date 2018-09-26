@@ -14,8 +14,16 @@ public class MiniExplorerGUI extends javax.swing.JFrame {
     /**
      * Creates new form MiniExplorerGUI
      */
+    DateiModell model = new DateiModell();
+    
     public MiniExplorerGUI() {
         initComponents();
+        
+        explorerList.setModel(model);
+        explorerList.setCellRenderer(new FileListRenderer());
+        this.setTitle(System.getProperty("user.dir"));
+        this.setSize(600, 300);
+        model.setStart(System.getProperty("user.dir"));
     }
 
     /**
@@ -28,21 +36,16 @@ public class MiniExplorerGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        explorerList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+        explorerList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 onChangeDir(evt);
             }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(explorerList);
 
         getContentPane().add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -50,7 +53,12 @@ public class MiniExplorerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onChangeDir(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onChangeDir
-        // TODO add your handling code here:
+        if(evt.getClickCount() == 2)
+        {
+            Datei sel = explorerList.getSelectedValue();
+            model.changeDirectory(sel);
+            this.setTitle(sel.getAbsolutePath());
+        }
     }//GEN-LAST:event_onChangeDir
 
     /**
@@ -89,7 +97,7 @@ public class MiniExplorerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<Datei> explorerList;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,9 @@
  */
 package miniexplorer;
 
+import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
@@ -13,11 +15,32 @@ import javax.swing.ListCellRenderer;
  *
  * @author Patrick
  */
-public class FileListRenderer implements ListCellRenderer<Datei>{
+public class FileListRenderer implements ListCellRenderer<Datei>
+{
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Datei> jList, Datei e, int index, boolean isSelected, boolean cellHasFocus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Component getListCellRendererComponent(JList<? extends Datei> explorerList, Datei datei, int index, boolean isSelected, boolean cellHasFocus) 
+    {
+        String pathname = System.getProperty("user.dir");
+        JLabel label = new JLabel(datei.toString());
+        label.setOpaque(true);
+        if(index == 0 || datei.isDirectory())
+        {
+            label.setBackground(Color.gray);
+            label.setForeground(Color.red);
+        }
+        else
+        {
+            label.setBackground(Color.LIGHT_GRAY);
+            label.setForeground(Color.blue);
+        }
+        if(isSelected)
+        {
+           label.setBackground(Color.blue);
+           label.setForeground(Color.white);
+        }
+        
+        return label;
     }
     
 }
