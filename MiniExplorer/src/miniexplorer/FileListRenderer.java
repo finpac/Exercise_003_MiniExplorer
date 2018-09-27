@@ -7,6 +7,7 @@ package miniexplorer;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -26,11 +27,13 @@ public class FileListRenderer implements ListCellRenderer<Datei>
         label.setOpaque(true);
         if(index == 0 || datei.isDirectory())
         {
+            label.setFont(new Font("Courier New", Font.BOLD + Font.ITALIC,16));
             label.setBackground(Color.gray);
             label.setForeground(Color.red);
         }
         else
         {
+            label.setFont(new Font("Courier New", Font.PLAIN,16));
             label.setBackground(Color.LIGHT_GRAY);
             label.setForeground(Color.blue);
         }

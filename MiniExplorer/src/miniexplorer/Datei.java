@@ -6,6 +6,7 @@
 package miniexplorer;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -15,9 +16,9 @@ public class Datei extends File{
     private File dir;
     private String pathname;
     private String name;
-    private String attributes = " ";
     private boolean hasParent ;
     private long size = 0;
+    private SimpleDateFormat sdf = new SimpleDateFormat();
     
     public Datei(String pathname, String name)
     {
@@ -29,17 +30,6 @@ public class Datei extends File{
         super(pathname);
         name = this.getName();
         hasParent = false;
-        if(this.isFile())
-        {
-            if(this.canRead())
-                attributes += " R ";
-            if(this.canWrite())
-                attributes += " W ";
-            if(this.canExecute())
-                attributes += " E ";
-            if(this.isHidden())
-                attributes += " H ";
-        }
         size = this.length()/1024;
     }
 
@@ -53,5 +43,14 @@ public class Datei extends File{
 
     public boolean isParent() {
         return hasParent;
+    }
+    
+    @Override
+    public String toString() {
+        if(isDirectory())
+        {
+            return String.format(name) ;
+        }
+        return String.format("%-15S  %5s Groesse: %5d KB",name, sdf.format(lastModified()), size);
     }
 }

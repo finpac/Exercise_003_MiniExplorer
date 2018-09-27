@@ -22,7 +22,7 @@ public class MiniExplorerGUI extends javax.swing.JFrame {
         explorerList.setModel(model);
         explorerList.setCellRenderer(new FileListRenderer());
         this.setTitle(System.getProperty("user.dir"));
-        this.setSize(600, 300);
+        this.setSize(700, 300);
         model.setStart(System.getProperty("user.dir"));
     }
 

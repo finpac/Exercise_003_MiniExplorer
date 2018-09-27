@@ -32,7 +32,14 @@ public class DateiModell extends AbstractListModel{
         super.fireContentsChanged(this, 0, file.size());
     }
 
-    void changeDirectory(Datei sel) {
+    void changeDirectory(Datei datei) {
         System.out.println("Change");
+        if(datei.isDirectory())
+        {
+            file = fComparer.compare(datei);
+            super.fireContentsChanged(this, 0, file.size());
+        }
     }
+    
+    
 }
